@@ -1,8 +1,7 @@
 import React, { useState, useMemo } from 'react';
-import { Grid, List, TrendingUp, Flame, Star, Eye, ArrowRight } from 'lucide-react';
+import { Grid, List, TrendingUp, Flame, Star, Eye } from 'lucide-react';
 import { Product } from '../types';
 import ProductCard from '../components/ProductCard';
-import { Link } from 'react-router-dom';
 
 interface TrendingProps {
   products: Product[];

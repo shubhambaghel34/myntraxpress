@@ -10,10 +10,11 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product, variant = 'grid' }: ProductCardProps) {
-  const { dispatch, isInWishlist, isInCart } = useApp();
+  const { state, dispatch } = useApp();
+  const isInWishlist = state.wishlist.some(item => item.product.id === product.id);
 
   const handleAddToWishlist = () => {
-    if (isInWishlist(product.id)) {
+    if (isInWishlist) {
       dispatch({ type: 'REMOVE_FROM_WISHLIST', payload: product.id });
     } else {
       dispatch({ type: 'ADD_TO_WISHLIST', payload: product });
@@ -115,12 +116,12 @@ export default function ProductCard({ product, variant = 'grid' }: ProductCardPr
                 <button
                   onClick={handleAddToWishlist}
                   className={`wishlist-btn ${
-                    isInWishlist(product.id)
+                    isInWishlist
                       ? 'wishlist-btn-active'
                       : 'wishlist-btn-inactive'
                   }`}
                 >
-                  <Heart size={16} className={isInWishlist(product.id) ? 'fill-current' : ''} />
+                  <Heart size={16} className={isInWishlist ? 'fill-current' : ''} />
                 </button>
 
                 <Link
@@ -154,13 +155,13 @@ export default function ProductCard({ product, variant = 'grid' }: ProductCardPr
           <button
             onClick={handleAddToWishlist}
             className={`p-2 rounded-full transition-colors ${
-              isInWishlist(product.id)
+              isInWishlist
                 ? 'bg-[#FD913C] text-white hover:bg-[#f0852e]'
                 : 'bg-white/90 text-gray-600 hover:bg-[#FD913C] hover:text-white'
             }`}
-            title={isInWishlist(product.id) ? 'Remove from wishlist' : 'Add to wishlist'}
+            title={isInWishlist ? 'Remove from wishlist' : 'Add to wishlist'}
           >
-            <Heart size={16} className={isInWishlist(product.id) ? 'fill-current' : ''} />
+            <Heart size={16} className={isInWishlist ? 'fill-current' : ''} />
           </button>
 
           <Link
@@ -223,12 +224,12 @@ export default function ProductCard({ product, variant = 'grid' }: ProductCardPr
           <button
             onClick={handleAddToWishlist}
             className={`p-2 rounded-lg border-2 transition-colors ${
-              isInWishlist(product.id)
+              isInWishlist
                 ? 'border-secondary-500 bg-secondary-50 text-secondary-700'
                 : 'border-gray-300 hover:border-secondary-300 hover:bg-secondary-50'
             }`}
           >
-            <Heart size={16} className={isInWishlist(product.id) ? 'fill-current' : ''} />
+            <Heart size={16} className={isInWishlist ? 'fill-current' : ''} />
           </button>
         </div>
       </div>

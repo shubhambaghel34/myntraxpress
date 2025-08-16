@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingBag, Star, TrendingUp, Zap } from 'lucide-react';
+import { ShoppingBag, TrendingUp, Zap } from 'lucide-react';
 import { Product, Category } from '../types';
 import ProductCard from '../components/ProductCard';
 import ImageSlider from '../components/ImageSlider';
