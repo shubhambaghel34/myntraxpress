@@ -1,7 +1,8 @@
 import React, { useState, useMemo } from 'react';
-import { Grid, List, TrendingUp, Fire, Star, Eye } from 'lucide-react';
+import { Grid, List, TrendingUp, Flame, Star, Eye, ArrowRight } from 'lucide-react';
 import { Product } from '../types';
 import ProductCard from '../components/ProductCard';
+import { Link } from 'react-router-dom';
 
 interface TrendingProps {
   products: Product[];
@@ -54,7 +55,7 @@ export default function Trending({ products }: TrendingProps) {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
-              className="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ff3e6c] focus:border-transparent"
             >
               <option value="trending">Trending Score</option>
               <option value="rating">Highest Rated</option>
@@ -158,7 +159,7 @@ export default function Trending({ products }: TrendingProps) {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="card p-6 text-center hover:shadow-lg transition-shadow cursor-pointer">
               <div className="bg-primary-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Fire size={32} className="text-primary-600" />
+                <Flame size={32} className="text-primary-600" />
               </div>
               <h3 className="text-lg font-semibold text-dark-900 mb-2">Electronics</h3>
               <p className="text-dark-600 text-sm">Latest gadgets & tech</p>

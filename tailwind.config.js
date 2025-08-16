@@ -5,6 +5,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'sans': ['Roboto', 'sans-serif'],
+        'roboto': ['Roboto', 'sans-serif'],
+      },
       colors: {
         primary: {
           50: '#fef2f8',
@@ -24,8 +28,8 @@ module.exports = {
           200: '#fecaca',
           300: '#fca5a5',
           400: '#f87171',
-          500: '#E72744', // Imperial Red
-          600: '#dc2626',
+          500: '#ff3e6c', // New Button Color
+          600: '#e6355f',
           700: '#b91c1c',
           800: '#991b1b',
           900: '#7f1d1d',
@@ -37,7 +41,7 @@ module.exports = {
           300: '#fdba74',
           400: '#fb923c',
           500: '#FD913C', // Royal Orange
-          600: '#ea580c',
+          600: '#f0852e',
           700: '#c2410c',
           800: '#9a3412',
           900: '#7c2d12',
@@ -49,7 +53,7 @@ module.exports = {
           300: '#fdba74',
           400: '#fb923c',
           500: '#F05524', // Halloween Orange
-          600: '#ea580c',
+          600: '#e04a1f',
           700: '#c2410c',
           800: '#9a3412',
           900: '#7c2d12',

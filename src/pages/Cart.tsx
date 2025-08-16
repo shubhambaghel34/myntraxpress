@@ -205,7 +205,7 @@ export default function Cart() {
               <button
                 onClick={() => setIsCheckingOut(true)}
                 disabled={isCheckingOut}
-                className="w-full btn-primary mt-6 py-3 text-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full btn-primary btn-large disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isCheckingOut ? 'Processing...' : 'Proceed to Checkout'}
               </button>
@@ -213,7 +213,7 @@ export default function Cart() {
               {/* Continue Shopping */}
               <Link
                 to="/products"
-                className="block w-full text-center btn-secondary mt-4 py-3"
+                className="block w-full text-center btn-secondary btn-large"
               >
                 Continue Shopping
               </Link>

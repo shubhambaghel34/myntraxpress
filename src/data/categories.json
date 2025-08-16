@@ -1,241 +1,235 @@
 [
   {
     "id": 1,
-    "name": "Electronics",
-    "slug": "electronics",
-    "icon": "Smartphone",
-    "description": "Latest gadgets and electronic devices",
+    "name": "MEN",
+    "slug": "men",
+    "icon": "User",
+    "description": "Stylish fashion and accessories for modern men",
     "subcategories": [
       {
         "id": 1,
-        "name": "Smartphones",
-        "slug": "smartphones",
-        "productCount": 45
+        "name": "Casual Wear",
+        "slug": "casual-wear",
+        "productCount": 78
       },
       {
         "id": 2,
-        "name": "Laptops",
-        "slug": "laptops",
-        "productCount": 32
+        "name": "Formal Wear",
+        "slug": "formal-wear",
+        "productCount": 45
       },
       {
         "id": 3,
-        "name": "Audio",
-        "slug": "audio",
-        "productCount": 67
+        "name": "Footwear",
+        "slug": "footwear",
+        "productCount": 62
       },
       {
         "id": 4,
-        "name": "Wearables",
-        "slug": "wearables",
-        "productCount": 28
+        "name": "Accessories",
+        "slug": "accessories",
+        "productCount": 38
       },
       {
         "id": 5,
-        "name": "Charging",
-        "slug": "charging",
-        "productCount": 34
-      },
-      {
-        "id": 6,
-        "name": "Security",
-        "slug": "security",
-        "productCount": 19
+        "name": "Sports Wear",
+        "slug": "sports-wear",
+        "productCount": 51
       }
     ]
   },
   {
     "id": 2,
-    "name": "Clothing",
-    "slug": "clothing",
-    "icon": "Shirt",
-    "description": "Fashion and apparel for all seasons",
+    "name": "WOMEN",
+    "slug": "women",
+    "icon": "User",
+    "description": "Fashion and lifestyle for modern women",
     "subcategories": [
       {
-        "id": 7,
-        "name": "T-Shirts",
-        "slug": "t-shirts",
-        "productCount": 156
+        "id": 6,
+        "name": "Ethnic Wear",
+        "slug": "ethnic-wear",
+        "productCount": 67
       },
       {
-        "id": 8,
-        "name": "Jeans",
-        "slug": "jeans",
+        "id": 7,
+        "name": "Western Wear",
+        "slug": "western-wear",
         "productCount": 89
       },
       {
+        "id": 8,
+        "name": "Footwear",
+        "slug": "footwear",
+        "productCount": 54
+      },
+      {
         "id": 9,
-        "name": "Dresses",
-        "slug": "dresses",
-        "productCount": 234
+        "name": "Handbags",
+        "slug": "handbags",
+        "productCount": 42
       },
       {
         "id": 10,
-        "name": "Shoes",
-        "slug": "shoes",
-        "productCount": 178
-      },
-      {
-        "id": 11,
-        "name": "Accessories",
-        "slug": "accessories",
-        "productCount": 92
+        "name": "Jewelry",
+        "slug": "jewelry",
+        "productCount": 38
       }
     ]
   },
   {
     "id": 3,
-    "name": "Home & Garden",
-    "slug": "home-garden",
-    "icon": "Home",
-    "description": "Everything for your home and outdoor space",
+    "name": "KIDS",
+    "slug": "kids",
+    "icon": "Baby",
+    "description": "Adorable clothing and accessories for children",
     "subcategories": [
       {
+        "id": 11,
+        "name": "Boys Clothing",
+        "slug": "boys-clothing",
+        "productCount": 45
+      },
+      {
         "id": 12,
-        "name": "Kitchen",
-        "slug": "kitchen",
-        "productCount": 267
+        "name": "Girls Clothing",
+        "slug": "girls-clothing",
+        "productCount": 52
       },
       {
         "id": 13,
-        "name": "Furniture",
-        "slug": "furniture",
-        "productCount": 145
+        "name": "Baby Wear",
+        "slug": "baby-wear",
+        "productCount": 38
       },
       {
         "id": 14,
-        "name": "Decor",
-        "slug": "decor",
-        "productCount": 189
+        "name": "Kids Shoes",
+        "slug": "kids-shoes",
+        "productCount": 29
       },
       {
         "id": 15,
-        "name": "Garden",
-        "slug": "garden",
-        "productCount": 123
-      },
-      {
-        "id": 16,
-        "name": "Lighting",
-        "slug": "lighting",
-        "productCount": 78
+        "name": "Kids Accessories",
+        "slug": "kids-accessories",
+        "productCount": 33
       }
     ]
   },
   {
     "id": 4,
-    "name": "Sports & Outdoors",
-    "slug": "sports-outdoors",
-    "icon": "Dumbbell",
-    "description": "Equipment and gear for active lifestyles",
+    "name": "HOME",
+    "slug": "home",
+    "icon": "Home",
+    "description": "Everything you need for your perfect home",
     "subcategories": [
       {
+        "id": 16,
+        "name": "Furniture",
+        "slug": "furniture",
+        "productCount": 76
+      },
+      {
         "id": 17,
-        "name": "Fitness",
-        "slug": "fitness",
-        "productCount": 234
+        "name": "Decor",
+        "slug": "decor",
+        "productCount": 93
       },
       {
         "id": 18,
-        "name": "Yoga",
-        "slug": "yoga",
-        "productCount": 89
+        "name": "Kitchen & Dining",
+        "slug": "kitchen-dining",
+        "productCount": 58
       },
       {
         "id": 19,
-        "name": "Running",
-        "slug": "running",
-        "productCount": 156
+        "name": "Bedding",
+        "slug": "bedding",
+        "productCount": 45
       },
       {
         "id": 20,
-        "name": "Camping",
-        "slug": "camping",
-        "productCount": 67
-      },
-      {
-        "id": 21,
-        "name": "Cycling",
-        "slug": "cycling",
-        "productCount": 45
+        "name": "Lighting",
+        "slug": "lighting",
+        "productCount": 34
       }
     ]
   },
   {
     "id": 5,
-    "name": "Books",
-    "slug": "books",
-    "icon": "BookOpen",
-    "description": "Books for all ages and interests",
+    "name": "BEAUTY",
+    "slug": "beauty",
+    "icon": "Heart",
+    "description": "Premium beauty and personal care products",
     "subcategories": [
       {
+        "id": 21,
+        "name": "Skincare",
+        "slug": "skincare",
+        "productCount": 89
+      },
+      {
         "id": 22,
-        "name": "Fiction",
-        "slug": "fiction",
-        "productCount": 567
+        "name": "Makeup",
+        "slug": "makeup",
+        "productCount": 124
       },
       {
         "id": 23,
-        "name": "Non-Fiction",
-        "slug": "non-fiction",
-        "productCount": 432
+        "name": "Hair Care",
+        "slug": "hair-care",
+        "productCount": 67
       },
       {
         "id": 24,
-        "name": "Children's",
-        "slug": "childrens",
-        "productCount": 234
+        "name": "Fragrances",
+        "slug": "fragrances",
+        "productCount": 43
       },
       {
         "id": 25,
-        "name": "Academic",
-        "slug": "academic",
-        "productCount": 189
-      },
-      {
-        "id": 26,
-        "name": "Cookbooks",
-        "slug": "cookbooks",
-        "productCount": 123
+        "name": "Personal Care",
+        "slug": "personal-care",
+        "productCount": 56
       }
     ]
   },
   {
     "id": 6,
-    "name": "Beauty & Health",
-    "slug": "beauty-health",
-    "icon": "Heart",
-    "description": "Personal care and wellness products",
+    "name": "GENZ",
+    "slug": "genz",
+    "icon": "Zap",
+    "description": "Trendy fashion and lifestyle for Gen Z",
     "subcategories": [
       {
+        "id": 26,
+        "name": "Streetwear",
+        "slug": "streetwear",
+        "productCount": 78
+      },
+      {
         "id": 27,
-        "name": "Skincare",
-        "slug": "skincare",
-        "productCount": 345
+        "name": "Tech Accessories",
+        "slug": "tech-accessories",
+        "productCount": 65
       },
       {
         "id": 28,
-        "name": "Makeup",
-        "slug": "makeup",
-        "productCount": 234
+        "name": "Trendy Bags",
+        "slug": "trendy-bags",
+        "productCount": 47
       },
       {
         "id": 29,
-        "name": "Haircare",
-        "slug": "haircare",
-        "productCount": 189
+        "name": "Statement Jewelry",
+        "slug": "statement-jewelry",
+        "productCount": 52
       },
       {
         "id": 30,
-        "name": "Fragrances",
-        "slug": "fragrances",
-        "productCount": 123
-      },
-      {
-        "id": 31,
-        "name": "Vitamins",
-        "slug": "vitamins",
-        "productCount": 89
+        "name": "Lifestyle",
+        "slug": "lifestyle",
+        "productCount": 41
       }
     ]
   }

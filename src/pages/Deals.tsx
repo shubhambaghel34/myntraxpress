@@ -1,7 +1,8 @@
 import React, { useState, useMemo } from 'react';
-import { Filter, Grid, List, SlidersHorizontal } from 'lucide-react';
+import { Grid, List, SlidersHorizontal, ArrowRight } from 'lucide-react';
 import { Product } from '../types';
 import ProductCard from '../components/ProductCard';
+import { Link } from 'react-router-dom';
 
 interface DealsProps {
   products: Product[];
@@ -9,7 +10,6 @@ interface DealsProps {
 
 export default function Deals({ products }: DealsProps) {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [showFilters, setShowFilters] = useState(false);
   const [sortBy, setSortBy] = useState<'discount-high' | 'discount-low' | 'price-low' | 'price-high'>('discount-high');
 
   // Filter products that have discounts
@@ -36,13 +36,6 @@ export default function Deals({ products }: DealsProps) {
       });
   }, [products, sortBy]);
 
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR',
-    }).format(price);
-  };
-
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
@@ -62,7 +55,7 @@ export default function Deals({ products }: DealsProps) {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
-              className="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ff3e6c] focus:border-transparent"
             >
               <option value="discount-high">Highest Discount</option>
               <option value="discount-low">Lowest Discount</option>
@@ -142,7 +135,7 @@ export default function Deals({ products }: DealsProps) {
         {/* Additional Deals Info */}
         <div className="mt-16 grid md:grid-cols-3 gap-8">
           <div className="card p-6 text-center">
-            <div className="bg-accent-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="bg-accent-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-2">
               <span className="text-2xl">⏰</span>
             </div>
             <h3 className="text-lg font-semibold text-dark-900 mb-2">Flash Sales</h3>
@@ -150,7 +143,7 @@ export default function Deals({ products }: DealsProps) {
           </div>
           
           <div className="card p-6 text-center">
-            <div className="bg-warning-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="bg-warning-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-2">
               <span className="text-2xl">🎯</span>
             </div>
             <h3 className="text-lg font-semibold text-dark-900 mb-2">Daily Deals</h3>
@@ -158,13 +151,22 @@ export default function Deals({ products }: DealsProps) {
           </div>
           
           <div className="card p-6 text-center">
-            <div className="bg-primary-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="bg-primary-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-2">
               <span className="text-2xl">🎉</span>
             </div>
             <h3 className="text-lg font-semibold text-dark-900 mb-2">Seasonal Sales</h3>
             <p className="text-dark-600">Biggest discounts during festivals</p>
           </div>
         </div>
+        <div className="text-center mt-8">
+            <Link
+              to="/deals"
+              className="btn-warning btn-large inline-flex items-center"
+            >
+              <span>View All Deals</span>
+              <ArrowRight size={18} />
+            </Link>
+          </div>
       </div>
     </div>
   );

@@ -1,7 +1,8 @@
 import React, { useState, useMemo } from 'react';
-import { Grid, List, Clock, Star, TrendingUp } from 'lucide-react';
+import { Grid, List, Clock, Star, TrendingUp, ArrowRight } from 'lucide-react';
 import { Product } from '../types';
 import ProductCard from '../components/ProductCard';
+import { Link } from 'react-router-dom';
 
 interface NewArrivalsProps {
   products: Product[];
@@ -48,7 +49,7 @@ export default function NewArrivals({ products }: NewArrivalsProps) {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
-              className="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ff3e6c] focus:border-transparent"
             >
               <option value="newest">Newest First</option>
               <option value="rating">Highest Rated</option>
@@ -165,7 +166,7 @@ export default function NewArrivals({ products }: NewArrivalsProps) {
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ff3e6c] focus:border-transparent"
                 />
                 <button
                   type="submit"
@@ -177,6 +178,15 @@ export default function NewArrivals({ products }: NewArrivalsProps) {
             </div>
           </div>
         </div>
+        <div className="text-center mt-8">
+            <Link
+              to="/new-arrivals"
+              className="btn-accent btn-large inline-flex items-center"
+            >
+              <span>View All New Arrivals</span>
+              <ArrowRight size={18} />
+            </Link>
+          </div>
       </div>
     </div>
   );

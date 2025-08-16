@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { Filter, Grid, List, SlidersHorizontal } from 'lucide-react';
+import { useSearchParams, useParams } from 'react-router-dom';
+import { Grid, List, SlidersHorizontal } from 'lucide-react';
 import { Product, Category, SearchFilters } from '../types';
 import ProductCard from '../components/ProductCard';
 
@@ -11,12 +11,13 @@ interface ProductListingProps {
 
 export default function ProductListing({ products, categories }: ProductListingProps) {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { categorySlug } = useParams<{ categorySlug: string }>();
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [showFilters, setShowFilters] = useState(false);
   const [filters, setFilters] = useState<SearchFilters>({
-    category: searchParams.get('category') || '',
-    subcategory: searchParams.get('subcategory') || '',
-    brand: searchParams.get('brand') || '',
+    category: '',
+    subcategory: '',
+    brand: '',
     minPrice: Number(searchParams.get('minPrice')) || 0,
     maxPrice: Number(searchParams.get('maxPrice')) || 1000,
     rating: Number(searchParams.get('rating')) || 0,
@@ -26,11 +27,32 @@ export default function ProductListing({ products, categories }: ProductListingP
 
   const searchQuery = searchParams.get('q') || '';
 
-  // Get unique brands from products
+  // Update category filter when route changes
+  useEffect(() => {
+    if (categorySlug) {
+      const category = categories.find(cat => cat.slug === categorySlug);
+      if (category) {
+        setFilters(prev => ({ ...prev, category: category.name, subcategory: '' }));
+      }
+    }
+  }, [categorySlug, categories]);
+
+  // Get unique brands from filtered products
   const brands = useMemo(() => {
-    const uniqueBrands = Array.from(new Set(products.map(p => p.brand)));
+    const categoryProducts = categorySlug ? products.filter(p => {
+      const category = categories.find(cat => cat.slug === categorySlug);
+      return category ? p.category === category.name : true;
+    }) : products;
+    
+    const uniqueBrands = Array.from(new Set(categoryProducts.map(p => p.brand)));
     return uniqueBrands.sort();
-  }, [products]);
+  }, [products, categories, categorySlug]);
+
+  // Get subcategories for a given category
+  const getSubcategories = (categoryName: string) => {
+    const category = categories.find(c => c.name === categoryName);
+    return category?.subcategories || [];
+  };
 
   // Filter and sort products
   const filteredProducts = useMemo(() => {
@@ -122,7 +144,7 @@ export default function ProductListing({ products, categories }: ProductListingP
 
   const clearFilters = () => {
     setFilters({
-      category: '',
+      category: categorySlug ? categories.find(cat => cat.slug === categorySlug)?.name || '' : '',
       subcategory: '',
       brand: '',
       minPrice: 0,
@@ -133,22 +155,76 @@ export default function ProductListing({ products, categories }: ProductListingP
     });
   };
 
-  const getSubcategories = (categoryName: string) => {
-    const category = categories.find(c => c.name === categoryName);
-    return category?.subcategories || [];
-  };
-
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            {searchQuery ? `Search Results for "${searchQuery}"` : 'All Products'}
-          </h1>
-          <p className="text-gray-600">
-            {filteredProducts.length} products found
-          </p>
+        {/* Page Header */}
+        {categorySlug && (
+          <div className="mb-8">
+            {(() => {
+              const category = categories.find(cat => cat.slug === categorySlug);
+              return category ? (
+                <div className="text-center">
+                  <h1 className="text-3xl font-bold text-dark-900 mb-4">{category.name}</h1>
+                  <p className="text-lg text-dark-600 max-w-2xl mx-auto mb-6">{category.description}</p>
+                  <div className="flex justify-center space-x-4 text-sm text-dark-500">
+                    <span>{filteredProducts.length} products</span>
+                    <span>•</span>
+                    <span>{category.subcategories.length} subcategories</span>
+                  </div>
+                </div>
+              ) : null;
+            })()}
+          </div>
+        )}
+
+        {/* Results Header */}
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6">
+          <div className="mb-4 lg:mb-0">
+            <h2 className="text-xl font-semibold text-dark-900">
+              {filteredProducts.length} products found
+            </h2>
+          </div>
+
+          {/* Sort */}
+          <div className="flex items-center space-x-2">
+            <label className="text-sm font-medium text-gray-700">Sort by:</label>
+            <select
+              value={filters.sortBy || 'popular'}
+              onChange={(e) => handleFilterChange('sortBy', e.target.value)}
+              className="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ff3e6c] focus:border-transparent"
+            >
+              <option value="popular">Most Popular</option>
+              <option value="newest">Newest</option>
+              <option value="rating">Highest Rated</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+            </select>
+          </div>
+
+          {/* View Mode */}
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={() => setViewMode('grid')}
+              className={`p-2 rounded-lg transition-colors ${
+                viewMode === 'grid'
+                  ? 'bg-primary-100 text-primary-600'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              <Grid size={20} />
+            </button>
+            <button
+              onClick={() => setViewMode('list')}
+              className={`p-2 rounded-lg transition-colors ${
+                viewMode === 'list'
+                  ? 'bg-primary-100 text-primary-600'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              <List size={20} />
+            </button>
+          </div>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8">
@@ -159,7 +235,7 @@ export default function ProductListing({ products, categories }: ProductListingP
                 onClick={() => setShowFilters(!showFilters)}
                 className="w-full flex items-center justify-center space-x-2 btn-secondary"
               >
-                <Filter size={20} />
+                <SlidersHorizontal size={20} />
                 <span>{showFilters ? 'Hide' : 'Show'} Filters</span>
               </button>
             </div>
@@ -170,30 +246,10 @@ export default function ProductListing({ products, categories }: ProductListingP
                   <h3 className="text-lg font-semibold">Filters</h3>
                   <button
                     onClick={clearFilters}
-                    className="text-sm text-primary-600 hover:text-primary-700"
+                    className="text-sm text-[#ff3e6c] hover:text-[#e6355f]"
                   >
                     Clear All
                   </button>
-                </div>
-
-                {/* Category Filter */}
-                <div className="mb-6">
-                  <h4 className="font-medium mb-3">Category</h4>
-                  <select
-                    value={filters.category}
-                    onChange={(e) => {
-                      handleFilterChange('category', e.target.value);
-                      handleFilterChange('subcategory', '');
-                    }}
-                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                  >
-                    <option value="">All Categories</option>
-                    {categories.map(category => (
-                      <option key={category.id} value={category.name}>
-                        {category.name}
-                      </option>
-                    ))}
-                  </select>
                 </div>
 
                 {/* Subcategory Filter */}
@@ -203,7 +259,7 @@ export default function ProductListing({ products, categories }: ProductListingP
                     <select
                       value={filters.subcategory}
                       onChange={(e) => handleFilterChange('subcategory', e.target.value)}
-                      className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                      className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ff3e6c] focus:border-transparent"
                     >
                       <option value="">All Subcategories</option>
                       {getSubcategories(filters.category).map(subcategory => (
@@ -221,7 +277,7 @@ export default function ProductListing({ products, categories }: ProductListingP
                   <select
                     value={filters.brand}
                     onChange={(e) => handleFilterChange('brand', e.target.value)}
-                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ff3e6c] focus:border-transparent"
                   >
                     <option value="">All Brands</option>
                     {brands.map(brand => (
@@ -242,7 +298,7 @@ export default function ProductListing({ products, categories }: ProductListingP
                         type="number"
                         value={filters.minPrice || 0}
                         onChange={(e) => handleFilterChange('minPrice', Number(e.target.value))}
-                        className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ff3e6c] focus:border-transparent"
                         min="0"
                         max={filters.maxPrice || 1000}
                       />
@@ -253,7 +309,7 @@ export default function ProductListing({ products, categories }: ProductListingP
                         type="number"
                         value={filters.maxPrice || 1000}
                         onChange={(e) => handleFilterChange('maxPrice', Number(e.target.value))}
-                        className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                        className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ff3e6c] focus:border-transparent"
                         min={filters.minPrice || 0}
                         max="1000"
                       />
@@ -267,7 +323,7 @@ export default function ProductListing({ products, categories }: ProductListingP
                   <select
                     value={filters.rating || 0}
                     onChange={(e) => handleFilterChange('rating', Number(e.target.value))}
-                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#ff3e6c] focus:border-transparent"
                   >
                     <option value={0}>Any Rating</option>
                     <option value={4}>4+ Stars</option>
@@ -283,7 +339,7 @@ export default function ProductListing({ products, categories }: ProductListingP
                       type="checkbox"
                       checked={filters.inStock || false}
                       onChange={(e) => handleFilterChange('inStock', e.target.checked)}
-                      className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+                      className="rounded border-gray-300 text-[#ff3e6c] focus:ring-[#ff3e6c]"
                     />
                     <span className="text-sm">In Stock Only</span>
                   </label>
@@ -294,49 +350,6 @@ export default function ProductListing({ products, categories }: ProductListingP
 
           {/* Products Section */}
           <div className="flex-1">
-            {/* Controls */}
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 space-y-4 sm:space-y-0">
-              {/* Sort */}
-              <div className="flex items-center space-x-2">
-                <label className="text-sm font-medium text-gray-700">Sort by:</label>
-                <select
-                  value={filters.sortBy || 'popular'}
-                  onChange={(e) => handleFilterChange('sortBy', e.target.value)}
-                  className="p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                >
-                  <option value="popular">Most Popular</option>
-                  <option value="newest">Newest</option>
-                  <option value="rating">Highest Rated</option>
-                  <option value="price-low">Price: Low to High</option>
-                  <option value="price-high">Price: High to Low</option>
-                </select>
-              </div>
-
-              {/* View Mode */}
-              <div className="flex items-center space-x-2">
-                <button
-                  onClick={() => setViewMode('grid')}
-                  className={`p-2 rounded-lg transition-colors ${
-                    viewMode === 'grid'
-                      ? 'bg-primary-100 text-primary-600'
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                  }`}
-                >
-                  <Grid size={20} />
-                </button>
-                <button
-                  onClick={() => setViewMode('list')}
-                  className={`p-2 rounded-lg transition-colors ${
-                    viewMode === 'list'
-                      ? 'bg-primary-100 text-primary-600'
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                  }`}
-                >
-                  <List size={20} />
-                </button>
-              </div>
-            </div>
-
             {/* Products Grid/List */}
             {filteredProducts.length > 0 ? (
               <div className={viewMode === 'grid' 

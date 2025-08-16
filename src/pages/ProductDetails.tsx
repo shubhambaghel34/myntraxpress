@@ -10,7 +10,7 @@ interface ProductDetailsProps {
 
 export default function ProductDetails({ products }: ProductDetailsProps) {
   const { productId } = useParams<{ productId: string }>();
-  const { dispatch, isInWishlist, isInCart } = useApp();
+  const { dispatch, isInWishlist } = useApp();
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [selectedColor, setSelectedColor] = useState<string>('');
   const [selectedSize, setSelectedSize] = useState<string>('');
@@ -301,21 +301,21 @@ export default function ProductDetails({ products }: ProductDetailsProps) {
               <button
                 onClick={handleAddToCart}
                 disabled={!product.inStock}
-                className="flex-1 btn-primary py-4 text-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 btn-primary btn-large disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <ShoppingCart size={20} className="mr-2" />
+                <ShoppingCart size={18} />
                 Add to Cart
               </button>
               
               <button
                 onClick={handleAddToWishlist}
-                className={`p-4 rounded-lg border-2 transition-colors ${
+                className={`wishlist-btn ${
                   isInWishlist(product.id)
-                    ? 'border-secondary-500 bg-secondary-50 text-secondary-700'
-                    : 'border-gray-300 hover:border-secondary-300 hover:bg-secondary-50'
+                    ? 'wishlist-btn-active'
+                    : 'wishlist-btn-inactive'
                 }`}
               >
-                <Heart size={20} className={isInWishlist(product.id) ? 'fill-current' : ''} />
+                <Heart size={18} className={isInWishlist(product.id) ? 'fill-current' : ''} />
               </button>
             </div>
 

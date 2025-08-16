@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,24 +7,37 @@
 @layer base {
   body {
     @apply bg-gray-50 text-dark-900;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  * {
+    font-family: 'Roboto', sans-serif;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-primary-500 hover:bg-primary-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg;
+    @apply bg-[#ff3e6c] hover:bg-[#e6355f] text-white font-medium py-2.5 px-4 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg inline-flex items-center justify-center gap-2 text-sm;
   }
   
   .btn-secondary {
-    @apply bg-gray-200 hover:bg-gray-300 text-dark-800 font-medium py-2 px-4 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg;
+    @apply bg-gray-200 hover:bg-gray-300 text-dark-800 font-medium py-2.5 px-4 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg inline-flex items-center justify-center gap-2 text-sm;
   }
 
   .btn-accent {
-    @apply bg-accent-500 hover:bg-accent-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg;
+    @apply bg-[#FD913C] hover:bg-[#f0852e] text-white font-medium py-2.5 px-4 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg inline-flex items-center justify-center gap-2 text-sm;
   }
 
   .btn-warning {
-    @apply bg-warning-500 hover:bg-warning-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg;
+    @apply bg-[#F05524] hover:bg-[#e04a1f] text-white font-medium py-2.5 px-4 rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg inline-flex items-center justify-center gap-2 text-sm;
+  }
+
+  .btn-large {
+    @apply py-3 px-6 text-base;
+  }
+
+  .btn-small {
+    @apply py-2 px-3 text-xs;
   }
   
   .card {
@@ -30,10 +45,22 @@
   }
 
   .gradient-primary {
-    @apply bg-gradient-to-r from-primary-500 to-secondary-500;
+    @apply bg-gradient-to-r from-[#F13AB1] to-[#ff3e6c];
   }
 
   .gradient-accent {
-    @apply bg-gradient-to-r from-accent-500 to-warning-500;
+    @apply bg-gradient-to-r from-[#FD913C] to-[#F05524];
+  }
+
+  .wishlist-btn {
+    @apply border-2 transition-colors p-2 rounded-lg;
+  }
+
+  .wishlist-btn-active {
+    @apply border-[#FD913C] bg-[#FD913C]/10 text-[#FD913C];
+  }
+
+  .wishlist-btn-inactive {
+    @apply border-gray-300 hover:border-[#FD913C] hover:bg-[#FD913C]/10;
   }
 }

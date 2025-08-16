@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Heart, ShoppingCart, Star, Eye } from 'lucide-react';
-import { Product } from '../types';
+import { Link } from 'react-router-dom';
 import { useApp } from '../context/AppContext';
+import { Product } from '../types';
 
 interface ProductCardProps {
   product: Product;
@@ -12,9 +12,7 @@ interface ProductCardProps {
 export default function ProductCard({ product, variant = 'grid' }: ProductCardProps) {
   const { dispatch, isInWishlist, isInCart } = useApp();
 
-  const handleAddToWishlist = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleAddToWishlist = () => {
     if (isInWishlist(product.id)) {
       dispatch({ type: 'REMOVE_FROM_WISHLIST', payload: product.id });
     } else {
@@ -22,19 +20,14 @@ export default function ProductCard({ product, variant = 'grid' }: ProductCardPr
     }
   };
 
-  const handleAddToCart = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    dispatch({ 
-      type: 'ADD_TO_CART', 
-      payload: { product, quantity: 1 } 
-    });
+  const handleAddToCart = () => {
+    dispatch({ type: 'ADD_TO_CART', payload: { product, quantity: 1 } });
   };
 
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('en-IN', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'INR',
     }).format(price);
   };
 
@@ -45,20 +38,20 @@ export default function ProductCard({ product, variant = 'grid' }: ProductCardPr
 
     for (let i = 0; i < fullStars; i++) {
       stars.push(
-        <Star key={i} size={14} className="fill-yellow-400 text-yellow-400" />
+        <Star key={i} size={16} className="fill-yellow-400 text-yellow-400" />
       );
     }
 
     if (hasHalfStar) {
       stars.push(
-        <Star key="half" size={14} className="fill-yellow-400 text-yellow-400" />
+        <Star key="half" size={16} className="fill-yellow-400 text-yellow-400" />
       );
     }
 
     const emptyStars = 5 - Math.ceil(rating);
     for (let i = 0; i < emptyStars; i++) {
       stars.push(
-        <Star key={`empty-${i}`} size={14} className="text-gray-300" />
+        <Star key={`empty-${i}`} size={16} className="text-gray-300" />
       );
     }
 
@@ -67,102 +60,76 @@ export default function ProductCard({ product, variant = 'grid' }: ProductCardPr
 
   if (variant === 'list') {
     return (
-      <div className="card p-6 hover:shadow-xl transition-shadow duration-200">
+      <div className="card p-6">
         <div className="flex space-x-6">
           {/* Product Image */}
           <div className="flex-shrink-0">
-            <Link to={`/product/${product.id}`}>
-              <img
-                src={product.image}
-                alt={product.name}
-                className="w-32 h-32 object-cover rounded-lg"
-              />
-            </Link>
+            <img
+              src={product.image}
+              alt={product.name}
+              className="w-32 h-32 object-cover rounded-lg"
+            />
           </div>
 
           {/* Product Info */}
-          <div className="flex-1 min-w-0">
-            <div className="flex items-start justify-between">
-              <div className="flex-1">
-                <Link to={`/product/${product.id}`}>
-                  <h3 className="text-lg font-semibold text-gray-900 hover:text-primary-600 transition-colors">
-                    {product.name}
-                  </h3>
-                </Link>
-                <p className="text-sm text-gray-500 mt-1">{product.brand}</p>
-                <p className="text-sm text-gray-600 mt-2 line-clamp-2">
-                  {product.description}
-                </p>
-                
-                {/* Rating */}
-                <div className="flex items-center mt-3 space-x-2">
-                  <div className="flex items-center space-x-1">
-                    {renderStars(product.rating)}
-                  </div>
-                  <span className="text-sm text-gray-500">
-                    ({product.reviewCount} reviews)
-                  </span>
-                </div>
+          <div className="flex-1">
+            <h3 className="text-xl font-semibold text-dark-900 mb-2">
+              <Link to={`/product/${product.id}`} className="hover:text-primary-600 transition-colors">
+                {product.name}
+              </Link>
+            </h3>
+            <p className="text-dark-600 mb-3">{product.description}</p>
+            
+            <div className="flex items-center space-x-4 mb-4">
+              <div className="flex items-center space-x-1">
+                {renderStars(product.rating)}
+                <span className="text-sm text-dark-600 ml-2">({product.reviewCount})</span>
+              </div>
+              <span className="text-sm text-dark-500">•</span>
+              <span className="text-sm text-dark-500">{product.brand}</span>
+            </div>
 
-                {/* Features */}
-                <div className="flex flex-wrap gap-2 mt-3">
-                  {product.features.slice(0, 3).map((feature, index) => (
-                    <span
-                      key={index}
-                      className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full"
-                    >
-                      {feature}
-                    </span>
-                  ))}
-                </div>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <span className="text-2xl font-bold text-dark-900">
+                  {formatPrice(product.price)}
+                </span>
+                {product.originalPrice > product.price && (
+                  <span className="text-lg text-dark-500 line-through">
+                    {formatPrice(product.originalPrice)}
+                  </span>
+                )}
               </div>
 
-              {/* Price and Actions */}
-              <div className="flex flex-col items-end space-y-3">
-                <div className="text-right">
-                  <div className="text-2xl font-bold text-gray-900">
-                    {formatPrice(product.price)}
-                  </div>
-                  {product.originalPrice > product.price && (
-                    <div className="text-sm text-gray-500 line-through">
-                      {formatPrice(product.originalPrice)}
-                    </div>
-                  )}
-                </div>
+              {/* Action Buttons */}
+              <div className="flex space-x-2">
+                <button
+                  onClick={handleAddToCart}
+                  disabled={!product.inStock}
+                  className="btn-primary btn-small disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <ShoppingCart size={16} />
+                  Add to Cart
+                </button>
+                
+                <button
+                  onClick={handleAddToWishlist}
+                  className={`wishlist-btn ${
+                    isInWishlist(product.id)
+                      ? 'wishlist-btn-active'
+                      : 'wishlist-btn-inactive'
+                  }`}
+                >
+                  <Heart size={16} className={isInWishlist(product.id) ? 'fill-current' : ''} />
+                </button>
 
-                <div className="flex space-x-2">
-                  <button
-                    onClick={handleAddToWishlist}
-                    className={`p-2 rounded-full transition-colors ${
-                      isInWishlist(product.id)
-                        ? 'bg-red-100 text-red-600 hover:bg-red-200'
-                        : 'bg-gray-100 text-gray-600 hover:bg-red-100 hover:text-red-600'
-                    }`}
-                    title={isInWishlist(product.id) ? 'Remove from wishlist' : 'Add to wishlist'}
-                  >
-                    <Heart size={20} className={isInWishlist(product.id) ? 'fill-current' : ''} />
-                  </button>
-
-                  <button
-                    onClick={handleAddToCart}
-                    className={`p-2 rounded-full transition-colors ${
-                      isInCart(product.id)
-                        ? 'bg-primary-100 text-primary-600 hover:bg-primary-200'
-                        : 'bg-gray-100 text-gray-600 hover:bg-primary-100 hover:text-primary-600'
-                    }`}
-                    title={isInCart(product.id) ? 'In cart' : 'Add to cart'}
-                  >
-                    <ShoppingCart size={20} className={isInCart(product.id) ? 'fill-current' : ''} />
-                  </button>
-
-                  <Link
-                    to={`/product/${product.id}`}
-                    className="p-2 bg-gray-100 text-gray-600 rounded-full hover:bg-gray-200 transition-colors"
-                    title="View details"
-                  >
-                    <Eye size={20} />
-                  </Link>
-                </div>
+                <Link
+                  to={`/product/${product.id}`}
+                  className="p-2 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200 transition-colors"
+                  title="View details"
+                >
+                  <Eye size={16} />
+                </Link>
               </div>
             </div>
           </div>
@@ -171,89 +138,98 @@ export default function ProductCard({ product, variant = 'grid' }: ProductCardPr
     );
   }
 
-  // Grid variant (default)
+  // Grid view (default)
   return (
-    <div className="card p-4 hover:shadow-xl transition-shadow duration-200 group">
+    <div className="card p-4">
       {/* Product Image */}
       <div className="relative mb-4">
-        <Link to={`/product/${product.id}`}>
-          <img
-            src={product.image}
-            alt={product.name}
-            className="w-full h-48 object-cover rounded-lg group-hover:scale-105 transition-transform duration-200"
-          />
-        </Link>
+        <img
+          src={product.image}
+          alt={product.name}
+          className="w-full h-48 object-cover rounded-lg"
+        />
         
-        {/* Quick Actions */}
-        <div className="absolute top-2 right-2 flex flex-col space-y-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+        {/* Quick Actions Overlay */}
+        <div className="absolute top-2 right-2 flex space-x-1">
           <button
             onClick={handleAddToWishlist}
-            className={`p-2 rounded-full shadow-lg transition-colors ${
+            className={`p-2 rounded-full transition-colors ${
               isInWishlist(product.id)
-                ? 'bg-red-500 text-white hover:bg-red-600'
-                : 'bg-white text-gray-600 hover:bg-red-500 hover:text-white'
+                ? 'bg-[#FD913C] text-white hover:bg-[#f0852e]'
+                : 'bg-white/90 text-gray-600 hover:bg-[#FD913C] hover:text-white'
             }`}
             title={isInWishlist(product.id) ? 'Remove from wishlist' : 'Add to wishlist'}
           >
             <Heart size={16} className={isInWishlist(product.id) ? 'fill-current' : ''} />
           </button>
 
-          <button
-            onClick={handleAddToCart}
-            className={`p-2 rounded-full shadow-lg transition-colors ${
-              isInCart(product.id)
-                ? 'bg-primary-500 text-white hover:bg-primary-600'
-                : 'bg-white text-gray-600 hover:bg-primary-500 hover:text-white'
-            }`}
-            title={isInCart(product.id) ? 'In cart' : 'Add to cart'}
+          <Link
+            to={`/product/${product.id}`}
+            className="p-2 bg-white/90 text-gray-600 rounded-full hover:bg-gray-100 transition-colors"
+            title="View details"
           >
-            <ShoppingCart size={16} className={isInCart(product.id) ? 'fill-current' : ''} />
-          </button>
+            <Eye size={16} />
+          </Link>
         </div>
 
         {/* Discount Badge */}
         {product.originalPrice > product.price && (
-          <div className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
-            {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}% OFF
+          <div className="absolute top-2 left-2">
+            <span className="bg-secondary-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+              {Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)}% OFF
+            </span>
           </div>
         )}
       </div>
 
       {/* Product Info */}
-      <div className="space-y-2">
-        <div className="flex items-center justify-between">
-          <span className="text-sm text-gray-500">{product.brand}</span>
-          <div className="flex items-center space-x-1">
-            {renderStars(product.rating)}
-            <span className="text-xs text-gray-500 ml-1">({product.reviewCount})</span>
-          </div>
+      <div>
+        <h3 className="font-semibold text-dark-900 mb-2 line-clamp-2">
+          <Link to={`/product/${product.id}`} className="hover:text-primary-600 transition-colors">
+            {product.name}
+          </Link>
+        </h3>
+        
+        <div className="flex items-center space-x-1 mb-2">
+          {renderStars(product.rating)}
+          <span className="text-sm text-dark-600 ml-1">({product.reviewCount})</span>
         </div>
 
-        <Link to={`/product/${product.id}`}>
-          <h3 className="font-semibold text-gray-900 hover:text-primary-600 transition-colors line-clamp-2">
-            {product.name}
-          </h3>
-        </Link>
-
-        <div className="flex items-center justify-between">
-          <div>
-            <span className="text-lg font-bold text-gray-900">
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center space-x-2">
+            <span className="text-lg font-bold text-dark-900">
               {formatPrice(product.price)}
             </span>
             {product.originalPrice > product.price && (
-              <span className="text-sm text-gray-500 line-through ml-2">
+              <span className="text-sm text-dark-500 line-through">
                 {formatPrice(product.originalPrice)}
               </span>
             )}
           </div>
+          <span className="text-sm text-dark-500">{product.brand}</span>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex space-x-2">
+          <button
+            onClick={handleAddToCart}
+            disabled={!product.inStock}
+            className="flex-1 btn-primary btn-small disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <ShoppingCart size={16} />
+            Add to Cart
+          </button>
           
-          <span className={`text-xs px-2 py-1 rounded-full ${
-            product.inStock 
-              ? 'bg-green-100 text-green-800' 
-              : 'bg-red-100 text-red-800'
-          }`}>
-            {product.inStock ? 'In Stock' : 'Out of Stock'}
-          </span>
+          <button
+            onClick={handleAddToWishlist}
+            className={`p-2 rounded-lg border-2 transition-colors ${
+              isInWishlist(product.id)
+                ? 'border-secondary-500 bg-secondary-50 text-secondary-700'
+                : 'border-gray-300 hover:border-secondary-300 hover:bg-secondary-50'
+            }`}
+          >
+            <Heart size={16} className={isInWishlist(product.id) ? 'fill-current' : ''} />
+          </button>
         </div>
       </div>
     </div>

@@ -103,7 +103,7 @@ export default function Profile() {
                   required
                   value={loginData.email}
                   onChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ff3e6c] focus:border-transparent"
                   placeholder="Enter your email"
                 />
               </div>
@@ -118,23 +118,26 @@ export default function Profile() {
                   required
                   value={loginData.password}
                   onChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ff3e6c] focus:border-transparent"
                   placeholder="Enter your password"
                 />
               </div>
 
               <div className="flex items-center justify-between">
                 <label className="flex items-center">
-                  <input type="checkbox" className="rounded border-gray-300 text-primary-600 focus:ring-primary-500" />
+                  <input type="checkbox" className="rounded border-gray-300 text-[#ff3e6c] focus:ring-[#ff3e6c]" />
                   <span className="ml-2 text-sm text-dark-600">Remember me</span>
                 </label>
-                <a href="#" className="text-sm text-primary-600 hover:text-primary-500">
+                <button
+                  type="button"
+                  className="text-sm text-primary-600 hover:text-primary-500"
+                >
                   Forgot password?
-                </a>
+                </button>
               </div>
 
-              <button type="submit" className="w-full btn-primary py-3">
-                <LogIn size={20} className="mr-2" />
+              <button type="submit" className="w-full btn-primary btn-large">
+                <LogIn size={18} />
                 Sign In
               </button>
             </form>
@@ -151,7 +154,7 @@ export default function Profile() {
                   required
                   value={registerData.name}
                   onChange={(e) => setRegisterData({ ...registerData, name: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ff3e6c] focus:border-transparent"
                   placeholder="Enter your full name"
                 />
               </div>
@@ -166,7 +169,7 @@ export default function Profile() {
                   required
                   value={registerData.email}
                   onChange={(e) => setRegisterData({ ...registerData, email: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ff3e6c] focus:border-transparent"
                   placeholder="Enter your email"
                 />
               </div>
@@ -181,7 +184,7 @@ export default function Profile() {
                   required
                   value={registerData.password}
                   onChange={(e) => setRegisterData({ ...registerData, password: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ff3e6c] focus:border-transparent"
                   placeholder="Create a password"
                 />
               </div>
@@ -196,13 +199,13 @@ export default function Profile() {
                   required
                   value={registerData.confirmPassword}
                   onChange={(e) => setRegisterData({ ...registerData, confirmPassword: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ff3e6c] focus:border-transparent"
                   placeholder="Confirm your password"
                 />
               </div>
 
-              <button type="submit" className="w-full btn-accent py-3">
-                <User size={20} className="mr-2" />
+              <button type="submit" className="w-full btn-primary btn-large">
+                <User size={18} />
                 Create Account
               </button>
             </form>
@@ -211,9 +214,19 @@ export default function Profile() {
           <div className="text-center">
             <p className="text-sm text-dark-500">
               By continuing, you agree to our{' '}
-              <a href="#" className="text-primary-600 hover:text-primary-500">Terms of Service</a>
+              <button
+                type="button"
+                className="text-primary-600 hover:text-primary-500"
+              >
+                Terms of Service
+              </button>
               {' '}and{' '}
-              <a href="#" className="text-primary-600 hover:text-primary-500">Privacy Policy</a>
+              <button
+                type="button"
+                className="text-primary-600 hover:text-primary-500"
+              >
+                Privacy Policy
+              </button>
             </p>
           </div>
         </div>
@@ -240,9 +253,9 @@ export default function Profile() {
             </div>
             <button
               onClick={handleLogout}
-              className="btn-secondary inline-flex items-center"
+              className="btn-primary"
             >
-              <LogOut size={20} className="mr-2" />
+              <LogOut size={18} />
               Logout
             </button>
           </div>
@@ -297,7 +310,7 @@ export default function Profile() {
                 <input
                   type="text"
                   defaultValue={state.user.name}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ff3e6c] focus:border-transparent"
                 />
               </div>
               <div>
@@ -305,7 +318,7 @@ export default function Profile() {
                 <input
                   type="email"
                   defaultValue={state.user.email}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ff3e6c] focus:border-transparent"
                 />
               </div>
               <div>
@@ -313,7 +326,7 @@ export default function Profile() {
                 <input
                   type="tel"
                   placeholder="Enter your phone number"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ff3e6c] focus:border-transparent"
                 />
               </div>
               <button className="btn-primary">Update Information</button>
@@ -346,29 +359,29 @@ export default function Profile() {
           <div className="grid md:grid-cols-2 gap-6">
             <div className="space-y-4">
               <label className="flex items-center">
-                <input type="checkbox" className="rounded border-gray-300 text-primary-600 focus:ring-primary-500" defaultChecked />
+                <input type="checkbox" className="rounded border-gray-300 text-[#ff3e6c] focus:ring-[#ff3e6c]" defaultChecked />
                 <span className="ml-2 text-dark-700">Email notifications</span>
               </label>
               <label className="flex items-center">
-                <input type="checkbox" className="rounded border-gray-300 text-primary-600 focus:ring-primary-500" defaultChecked />
+                <input type="checkbox" className="rounded border-gray-300 text-[#ff3e6c] focus:ring-[#ff3e6c]" defaultChecked />
                 <span className="ml-2 text-dark-700">SMS notifications</span>
               </label>
               <label className="flex items-center">
-                <input type="checkbox" className="rounded border-gray-300 text-primary-600 focus:ring-primary-500" />
+                <input type="checkbox" className="rounded border-gray-300 text-[#ff3e6c] focus:ring-[#ff3e6c]" />
                 <span className="ml-2 text-dark-700">Push notifications</span>
               </label>
             </div>
             <div className="space-y-4">
               <label className="flex items-center">
-                <input type="checkbox" className="rounded border-gray-300 text-primary-600 focus:ring-primary-500" defaultChecked />
+                <input type="checkbox" className="rounded border-gray-300 text-[#ff3e6c] focus:ring-[#ff3e6c]" defaultChecked />
                 <span className="ml-2 text-dark-700">Deals and offers</span>
               </label>
               <label className="flex items-center">
-                <input type="checkbox" className="rounded border-gray-300 text-primary-600 focus:ring-primary-500" defaultChecked />
+                <input type="checkbox" className="rounded border-gray-300 text-[#ff3e6c] focus:ring-[#ff3e6c]" defaultChecked />
                 <span className="ml-2 text-dark-700">New arrivals</span>
               </label>
               <label className="flex items-center">
-                <input type="checkbox" className="rounded border-gray-300 text-primary-600 focus:ring-primary-500" />
+                <input type="checkbox" className="rounded border-gray-300 text-[#ff3e6c] focus:ring-[#ff3e6c]" />
                 <span className="ml-2 text-dark-700">Newsletter</span>
               </label>
             </div>

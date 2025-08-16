@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Search, ShoppingCart, Heart, User, Menu, X, ChevronDown } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Search, Heart, ShoppingCart, User, ChevronDown } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { Category } from '../types';
 
@@ -8,215 +8,308 @@ interface HeaderProps {
   categories: Category[];
 }
 
-export default function Header({ categories }: HeaderProps) {
-  const { state, dispatch, cartItemCount } = useApp();
-  const navigate = useNavigate();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isCategoryMenuOpen, setIsCategoryMenuOpen] = useState(false);
+const Header: React.FC<HeaderProps> = ({ categories }) => {
+  const { state, dispatch } = useApp();
   const [searchQuery, setSearchQuery] = useState('');
+  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    if (searchQuery.trim()) {
-      dispatch({ type: 'SET_SEARCH_QUERY', payload: searchQuery });
-      navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
-      setSearchQuery('');
-    }
+    // Handle search logic here
+    console.log('Searching for:', searchQuery);
   };
 
-  const handleCategoryClick = (categorySlug: string) => {
-    navigate(`/category/${categorySlug}`);
-    setIsCategoryMenuOpen(false);
-  };
+  const cartItemCount = state.cart.reduce((total: number, item: any) => total + item.quantity, 0);
+  const wishlistItemCount = state.wishlist.length;
 
   return (
-    <header className="bg-white shadow-md sticky top-0 z-50">
-      {/* Top bar */}
-      <div className="gradient-primary text-white py-2">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-between items-center text-sm">
-            <div className="flex items-center space-x-4">
-              <span>Free shipping on orders over ₹499</span>
-              <span>•</span>
-              <span>30-day return policy</span>
-            </div>
-            <div className="flex items-center space-x-4">
-              <Link to="/help" className="hover:text-primary-100">Help</Link>
-              <Link to="/contact" className="hover:text-primary-100">Contact</Link>
-            </div>
+    <header className="bg-white shadow-sm border-b border-gray-200">
+      <div className="container mx-auto px-4">
+        {/* Desktop Navigation */}
+        <div className="hidden lg:flex items-center justify-between py-4">
+          {/* Left side: Logo and Navigation */}
+          <div className="flex items-center space-x-8">
+            {/* Company Logo */}
+            <Link to="/" className="text-2xl font-bold text-gray-800">
+              DesiMyntra
+            </Link>
+
+            {/* Navigation Links */}
+            <nav className="flex items-center space-x-6">
+              <Link to="/category/men" className="text-gray-700 hover:text-gray-900 transition-colors font-medium">
+                MEN
+              </Link>
+              <Link to="/category/women" className="text-gray-700 hover:text-gray-900 transition-colors font-medium">
+                WOMEN
+              </Link>
+              <Link to="/category/kids" className="text-gray-700 hover:text-gray-900 transition-colors font-medium">
+                KIDS
+              </Link>
+              <Link to="/category/home" className="text-gray-700 hover:text-gray-900 transition-colors font-medium">
+                HOME
+              </Link>
+              <Link to="/category/beauty" className="text-gray-700 hover:text-gray-900 transition-colors font-medium">
+                BEAUTY
+              </Link>
+              <Link to="/category/genz" className="text-gray-700 hover:text-gray-900 transition-colors font-medium">
+                GENZ
+              </Link>
+            </nav>
           </div>
-        </div>
-      </div>
 
-      {/* Main header */}
-      <div className="container mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
-          {/* Logo */}
-          <Link to="/" className="text-3xl font-bold gradient-primary bg-clip-text text-transparent">
-            DesiMyntra
-          </Link>
-
-          {/* Search bar */}
-          <div className="hidden md:flex flex-1 max-w-2xl mx-8">
-            <form onSubmit={handleSearch} className="w-full">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Search for products..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-4 pr-12 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                />
-                <button
-                  type="submit"
-                  className="absolute right-0 top-0 h-full px-4 bg-primary-500 text-white rounded-r-lg hover:bg-primary-600 transition-colors"
-                >
-                  <Search size={20} />
-                </button>
-              </div>
+          {/* Right side: Search, Profile, Wishlist, Cart */}
+          <div className="flex items-center space-x-6">
+            {/* Search Bar */}
+            <form onSubmit={handleSearch} className="relative">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-80 pl-4 pr-12 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ff3e6c] focus:border-transparent"
+                placeholder="Search for products..."
+              />
+              <button
+                type="submit"
+                className="absolute right-0 top-0 h-full px-4 bg-[#ff3e6c] text-white rounded-r-lg hover:bg-[#e6355f] transition-colors"
+              >
+                <Search size={18} />
+              </button>
             </form>
-          </div>
 
-          {/* Right side icons */}
-          <div className="flex items-center space-x-4">
-            <Link to="/wishlist" className="relative p-2 hover:bg-gray-100 rounded-full transition-colors">
-              <Heart size={24} className="text-dark-600" />
-              {state.wishlist.length > 0 && (
-                <span className="absolute -top-1 -right-1 bg-secondary-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                  {state.wishlist.length}
+            {/* Profile */}
+            <div className="relative">
+              {state.user ? (
+                <div className="relative">
+                  <button
+                    onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}
+                    className="flex items-center space-x-2 text-gray-700 hover:text-gray-900 transition-colors"
+                  >
+                    <User size={18} />
+                    <span className="hidden sm:block">{state.user.name}</span>
+                    <ChevronDown size={16} />
+                  </button>
+
+                  {isUserDropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                      <Link
+                        to="/profile"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                      >
+                        Profile
+                      </Link>
+                      <Link
+                        to="/orders"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                      >
+                        My Orders
+                      </Link>
+                      <Link
+                        to="/wishlist"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                      >
+                        Wishlist
+                      </Link>
+                      <button
+                        onClick={() => {
+                          dispatch({ type: 'SET_USER', payload: null });
+                          setIsUserDropdownOpen(false);
+                        }}
+                        className="block w-full text-left px-4 py-2 text-sm text-[#ff3e6c] hover:bg-gray-50 transition-colors"
+                      >
+                        Sign Out
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <Link
+                  to="/profile"
+                  className="flex items-center space-x-2 text-gray-700 hover:text-gray-900 transition-colors"
+                >
+                  <User size={18} />
+                  <span className="hidden sm:block">Profile</span>
+                </Link>
+              )}
+            </div>
+
+            {/* Wishlist */}
+            <Link
+              to="/wishlist"
+              className="flex items-center space-x-2 text-gray-700 hover:text-gray-900 transition-colors relative"
+            >
+              <Heart size={18} />
+              <span className="hidden sm:block">Wishlist</span>
+              {wishlistItemCount > 0 && (
+                <span className="absolute -top-2 -right-2 bg-[#ff3e6c] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  {wishlistItemCount}
                 </span>
               )}
             </Link>
-            
-            <Link to="/cart" className="relative p-2 hover:bg-gray-100 rounded-full transition-colors">
-              <ShoppingCart size={24} className="text-dark-600" />
+
+            {/* Cart */}
+            <Link
+              to="/cart"
+              className="flex items-center space-x-2 text-gray-700 hover:text-gray-900 transition-colors relative"
+            >
+              <ShoppingCart size={18} />
+              <span className="hidden sm:block">Cart</span>
               {cartItemCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                <span className="absolute -top-2 -right-2 bg-[#ff3e6c] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
                   {cartItemCount}
                 </span>
               )}
             </Link>
+          </div>
+        </div>
 
-            <div className="relative">
-              <button className="flex items-center space-x-1 p-2 hover:bg-gray-100 rounded-full transition-colors">
-                <User size={24} className="text-dark-600" />
-                <ChevronDown size={16} className="text-dark-600" />
-              </button>
-              {/* User dropdown would go here */}
-            </div>
+        {/* Mobile Navigation */}
+        <div className="lg:hidden py-4">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <Link to="/" className="text-xl font-bold text-gray-800">
+              DesiMyntra
+            </Link>
 
-            {/* Mobile menu button */}
+            {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 hover:bg-gray-100 rounded-full transition-colors"
+              className="p-2 text-gray-700 hover:text-gray-900 transition-colors"
             >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
             </button>
           </div>
+
+          {/* Mobile Search */}
+          <form onSubmit={handleSearch} className="relative mt-4">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-4 pr-12 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ff3e6c] focus:border-transparent"
+              placeholder="Search for products..."
+            />
+            <button
+              type="submit"
+              className="absolute right-0 top-0 h-full px-4 bg-[#ff3e6c] text-white rounded-r-lg hover:bg-[#e6355f] transition-colors"
+            >
+              <Search size={18} />
+            </button>
+          </form>
+
+          {/* Mobile Menu */}
+          {isMenuOpen && (
+            <div className="mt-4 py-4 border-t border-gray-200">
+              <nav className="space-y-2">
+                <Link
+                  to="/category/men"
+                  className="block py-2 text-gray-700 hover:text-gray-900 transition-colors font-medium"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  MEN
+                </Link>
+                <Link
+                  to="/category/women"
+                  className="block py-2 text-gray-700 hover:text-gray-900 transition-colors font-medium"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  WOMEN
+                </Link>
+                <Link
+                  to="/category/kids"
+                  className="block py-2 text-gray-700 hover:text-gray-900 transition-colors font-medium"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  KIDS
+                </Link>
+                <Link
+                  to="/category/home"
+                  className="block py-2 text-gray-700 hover:text-gray-900 transition-colors font-medium"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  HOME
+                </Link>
+                <Link
+                  to="/category/beauty"
+                  className="block py-2 text-gray-700 hover:text-gray-900 transition-colors font-medium"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  BEAUTY
+                </Link>
+                <Link
+                  to="/category/genz"
+                  className="block py-2 text-gray-700 hover:text-gray-900 transition-colors font-medium"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  GENZ
+                </Link>
+              </nav>
+
+              <div className="mt-4 pt-4 border-t border-gray-200 space-y-2">
+                {state.user ? (
+                  <>
+                    <Link
+                      to="/profile"
+                      className="flex items-center space-x-2 py-2 text-gray-700 hover:text-gray-900 transition-colors"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <User size={18} />
+                      <span>Profile</span>
+                    </Link>
+                    <Link
+                      to="/orders"
+                      className="flex items-center space-x-2 py-2 text-gray-700 hover:text-gray-900 transition-colors"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <span>My Orders</span>
+                    </Link>
+                    <button
+                      onClick={() => {
+                        dispatch({ type: 'SET_USER', payload: null });
+                        setIsMenuOpen(false);
+                      }}
+                      className="block w-full text-left py-2 px-4 text-[#ff3e6c] hover:bg-gray-100 rounded-lg transition-colors"
+                    >
+                      Sign Out
+                    </button>
+                  </>
+                ) : (
+                  <Link
+                    to="/profile"
+                    className="flex items-center space-x-2 py-2 text-gray-700 hover:text-gray-900 transition-colors"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <User size={18} />
+                    <span>Profile</span>
+                  </Link>
+                )}
+
+                <Link
+                  to="/wishlist"
+                  className="flex items-center space-x-2 py-2 text-gray-700 hover:text-gray-900 transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <Heart size={18} />
+                  <span>Wishlist ({wishlistItemCount})</span>
+                </Link>
+
+                <Link
+                  to="/cart"
+                  className="flex items-center space-x-2 py-2 text-gray-700 hover:text-gray-900 transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <ShoppingCart size={18} />
+                  <span>Cart ({cartItemCount})</span>
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
       </div>
-
-      {/* Navigation */}
-      <nav className="border-t border-gray-200">
-        <div className="container mx-auto px-4">
-          <div className="flex items-center space-x-8 py-3">
-            {/* Categories dropdown */}
-            <div className="relative">
-              <button
-                onClick={() => setIsCategoryMenuOpen(!isCategoryMenuOpen)}
-                className="flex items-center space-x-1 py-2 px-4 hover:bg-gray-100 rounded-lg transition-colors"
-              >
-                <span>Categories</span>
-                <ChevronDown size={16} />
-              </button>
-              
-              {isCategoryMenuOpen && (
-                <div className="absolute top-full left-0 mt-2 w-64 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
-                  {categories.map((category) => (
-                    <div key={category.id} className="border-b border-gray-100 last:border-b-0">
-                      <button
-                        onClick={() => handleCategoryClick(category.slug)}
-                        className="w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors"
-                      >
-                        <div className="font-medium text-dark-900">{category.name}</div>
-                        <div className="text-sm text-dark-500">{category.description}</div>
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            <Link to="/deals" className="py-2 px-4 hover:bg-gray-100 rounded-lg transition-colors">
-              Deals
-            </Link>
-            <Link to="/new-arrivals" className="py-2 px-4 hover:bg-gray-100 rounded-lg transition-colors">
-              New Arrivals
-            </Link>
-            <Link to="/trending" className="py-2 px-4 hover:bg-gray-100 rounded-lg transition-colors">
-              Trending
-            </Link>
-          </div>
-        </div>
-      </nav>
-
-      {/* Mobile menu */}
-      {isMenuOpen && (
-        <div className="md:hidden border-t border-gray-200 bg-white">
-          <div className="container mx-auto px-4 py-4">
-            <div className="space-y-4">
-              {/* Mobile search */}
-              <form onSubmit={handleSearch}>
-                <div className="relative">
-                  <input
-                    type="text"
-                    placeholder="Search for products..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-4 pr-12 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                  />
-                  <button
-                    type="submit"
-                    className="absolute right-0 top-0 h-full px-4 bg-primary-500 text-white rounded-r-lg hover:bg-primary-600 transition-colors"
-                  >
-                    <Search size={20} />
-                  </button>
-                </div>
-              </form>
-
-              {/* Mobile navigation */}
-              <div className="space-y-2">
-                <Link to="/deals" className="block py-2 px-4 hover:bg-gray-100 rounded-lg transition-colors">
-                  Deals
-                </Link>
-                <Link to="/new-arrivals" className="block py-2 px-4 hover:bg-gray-100 rounded-lg transition-colors">
-                  New Arrivals
-                </Link>
-                <Link to="/trending" className="block py-2 px-4 hover:bg-gray-100 rounded-lg transition-colors">
-                  Trending
-                </Link>
-              </div>
-
-              {/* Mobile categories */}
-              <div className="space-y-2">
-                <div className="font-medium text-dark-900 px-4 py-2">Categories</div>
-                {categories.map((category) => (
-                  <button
-                    key={category.id}
-                    onClick={() => {
-                      handleCategoryClick(category.slug);
-                      setIsMenuOpen(false);
-                    }}
-                    className="w-full text-left px-4 py-2 hover:bg-gray-100 rounded-lg transition-colors"
-                  >
-                    {category.name}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </header>
   );
-}
+};
+
+export default Header;

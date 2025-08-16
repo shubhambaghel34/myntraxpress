@@ -27,6 +27,10 @@ export default function Wishlist() {
     dispatch({ type: 'CLEAR_WISHLIST' });
   };
 
+  const handleClearWishlist = () => {
+    dispatch({ type: 'CLEAR_WISHLIST' });
+  };
+
   if (state.wishlist.length === 0) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -61,13 +65,18 @@ export default function Wishlist() {
             </div>
             
             {state.wishlist.length > 0 && (
-              <div className="flex space-x-3 mt-4 sm:mt-0">
+              <div className="flex space-x-4">
+                <button
+                  onClick={handleClearWishlist}
+                  className="btn-secondary"
+                >
+                  Clear Wishlist
+                </button>
                 <button
                   onClick={handleMoveAllToCart}
-                  className="btn-primary inline-flex items-center space-x-2"
+                  className="btn-primary btn-large"
                 >
-                  <ShoppingCart size={20} />
-                  <span>Add All to Cart</span>
+                  Move All to Cart
                 </button>
               </div>
             )}
