@@ -1,0 +1,242 @@
+[
+  {
+    "id": 1,
+    "name": "Electronics",
+    "slug": "electronics",
+    "icon": "Smartphone",
+    "description": "Latest gadgets and electronic devices",
+    "subcategories": [
+      {
+        "id": 1,
+        "name": "Smartphones",
+        "slug": "smartphones",
+        "productCount": 45
+      },
+      {
+        "id": 2,
+        "name": "Laptops",
+        "slug": "laptops",
+        "productCount": 32
+      },
+      {
+        "id": 3,
+        "name": "Audio",
+        "slug": "audio",
+        "productCount": 67
+      },
+      {
+        "id": 4,
+        "name": "Wearables",
+        "slug": "wearables",
+        "productCount": 28
+      },
+      {
+        "id": 5,
+        "name": "Charging",
+        "slug": "charging",
+        "productCount": 34
+      },
+      {
+        "id": 6,
+        "name": "Security",
+        "slug": "security",
+        "productCount": 19
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Clothing",
+    "slug": "clothing",
+    "icon": "Shirt",
+    "description": "Fashion and apparel for all seasons",
+    "subcategories": [
+      {
+        "id": 7,
+        "name": "T-Shirts",
+        "slug": "t-shirts",
+        "productCount": 156
+      },
+      {
+        "id": 8,
+        "name": "Jeans",
+        "slug": "jeans",
+        "productCount": 89
+      },
+      {
+        "id": 9,
+        "name": "Dresses",
+        "slug": "dresses",
+        "productCount": 234
+      },
+      {
+        "id": 10,
+        "name": "Shoes",
+        "slug": "shoes",
+        "productCount": 178
+      },
+      {
+        "id": 11,
+        "name": "Accessories",
+        "slug": "accessories",
+        "productCount": 92
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Home & Garden",
+    "slug": "home-garden",
+    "icon": "Home",
+    "description": "Everything for your home and outdoor space",
+    "subcategories": [
+      {
+        "id": 12,
+        "name": "Kitchen",
+        "slug": "kitchen",
+        "productCount": 267
+      },
+      {
+        "id": 13,
+        "name": "Furniture",
+        "slug": "furniture",
+        "productCount": 145
+      },
+      {
+        "id": 14,
+        "name": "Decor",
+        "slug": "decor",
+        "productCount": 189
+      },
+      {
+        "id": 15,
+        "name": "Garden",
+        "slug": "garden",
+        "productCount": 123
+      },
+      {
+        "id": 16,
+        "name": "Lighting",
+        "slug": "lighting",
+        "productCount": 78
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Sports & Outdoors",
+    "slug": "sports-outdoors",
+    "icon": "Dumbbell",
+    "description": "Equipment and gear for active lifestyles",
+    "subcategories": [
+      {
+        "id": 17,
+        "name": "Fitness",
+        "slug": "fitness",
+        "productCount": 234
+      },
+      {
+        "id": 18,
+        "name": "Yoga",
+        "slug": "yoga",
+        "productCount": 89
+      },
+      {
+        "id": 19,
+        "name": "Running",
+        "slug": "running",
+        "productCount": 156
+      },
+      {
+        "id": 20,
+        "name": "Camping",
+        "slug": "camping",
+        "productCount": 67
+      },
+      {
+        "id": 21,
+        "name": "Cycling",
+        "slug": "cycling",
+        "productCount": 45
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Books",
+    "slug": "books",
+    "icon": "BookOpen",
+    "description": "Books for all ages and interests",
+    "subcategories": [
+      {
+        "id": 22,
+        "name": "Fiction",
+        "slug": "fiction",
+        "productCount": 567
+      },
+      {
+        "id": 23,
+        "name": "Non-Fiction",
+        "slug": "non-fiction",
+        "productCount": 432
+      },
+      {
+        "id": 24,
+        "name": "Children's",
+        "slug": "childrens",
+        "productCount": 234
+      },
+      {
+        "id": 25,
+        "name": "Academic",
+        "slug": "academic",
+        "productCount": 189
+      },
+      {
+        "id": 26,
+        "name": "Cookbooks",
+        "slug": "cookbooks",
+        "productCount": 123
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Beauty & Health",
+    "slug": "beauty-health",
+    "icon": "Heart",
+    "description": "Personal care and wellness products",
+    "subcategories": [
+      {
+        "id": 27,
+        "name": "Skincare",
+        "slug": "skincare",
+        "productCount": 345
+      },
+      {
+        "id": 28,
+        "name": "Makeup",
+        "slug": "makeup",
+        "productCount": 234
+      },
+      {
+        "id": 29,
+        "name": "Haircare",
+        "slug": "haircare",
+        "productCount": 189
+      },
+      {
+        "id": 30,
+        "name": "Fragrances",
+        "slug": "fragrances",
+        "productCount": 123
+      },
+      {
+        "id": 31,
+        "name": "Vitamins",
+        "slug": "vitamins",
+        "productCount": 89
+      }
+    ]
+  }
+]
