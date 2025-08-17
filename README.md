@@ -4,7 +4,20 @@ A modern, responsive e-commerce website built with React.js, TypeScript, and Tai
 
 ## 🚀 Live Demo
 
-[Deploy to Vercel](https://vercel.com/new/clone?repository-url=https://github.com/yourusername/desimyntra-ecommerce)
+**🌐 Live Site**: [https://myntraxpressappweb-dev.vercel.app/](https://myntraxpressappweb-dev.vercel.app/)
+
+[![Deploy to Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/shubhambaghel34/myntraxpressappweb.git)
+
+## 🏷️ Tags
+
+![React](https://img.shields.io/badge/React-19.1.1-blue?style=for-the-badge&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-4.9.5-blue?style=for-the-badge&logo=typescript)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4.17-38B2AC?style=for-the-badge&logo=tailwind-css)
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+![Create React App](https://img.shields.io/badge/Create_React_App-5.0.1-09D3AC?style=for-the-badge&logo=create-react-app&logoColor=white)
+![E-commerce](https://img.shields.io/badge/E--commerce-Platform-green?style=for-the-badge)
+![Responsive](https://img.shields.io/badge/Responsive-Design-orange?style=for-the-badge)
+![Mobile First](https://img.shields.io/badge/Mobile_First-Approach-blue?style=for-the-badge)
 
 ## ✨ Features
 
@@ -74,8 +87,8 @@ src/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/desimyntra-ecommerce.git
-   cd desimyntra-ecommerce
+   git clone https://github.com/shubhambaghel34/myntraxpressappweb.git
+   cd myntraxpressappweb
    ```
 
 2. **Install dependencies**
@@ -137,13 +150,13 @@ npm run test:coverage # Run tests with coverage
    ```bash
    git add .
    git commit -m "Production ready for Vercel"
-   git push origin main
+   git push origin master
    ```
 
 2. **Connect to Vercel**
    - Go to [vercel.com](https://vercel.com)
    - Click "New Project"
-   - Import your GitHub repository
+   - Import your GitHub repository: `shubhambaghel34/myntraxpressappweb`
    - Vercel will auto-detect Create React App
 
 3. **Configure Build Settings**
@@ -164,7 +177,7 @@ npm run test:coverage # Run tests with coverage
 
 ### Option 3: One-Click Deploy
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yourusername/desimyntra-ecommerce)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/shubhambaghel34/myntraxpressappweb.git)
 
 ## ⚡ Performance Optimizations
 
@@ -256,8 +269,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🆘 Support
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/desimyntra-ecommerce/issues)
-- **Documentation**: [Project Wiki](https://github.com/yourusername/desimyntra-ecommerce/wiki)
+- **Issues**: [GitHub Issues](https://github.com/shubhambaghel34/myntraxpressappweb/issues)
+- **Documentation**: [Project Wiki](https://github.com/shubhambaghel34/myntraxpressappweb/wiki)
 - **Email**: support@desimyntra.com
 
 ## 🙏 Acknowledgments
@@ -268,5 +281,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Unsplash**: For beautiful product images
 
 ---
+
+**🌐 Live Demo**: [https://myntraxpressappweb-dev.vercel.app/](https://myntraxpressappweb-dev.vercel.app/)
 
 **Made with ❤️ for the DesiMyntra community**
