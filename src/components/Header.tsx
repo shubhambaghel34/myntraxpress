@@ -16,8 +16,9 @@ const Header: React.FC<HeaderProps> = ({ categories }) => {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle search logic here
-    console.log('Searching for:', searchQuery);
+    if (searchQuery.trim()) {
+      window.location.href = `/search?q=${encodeURIComponent(searchQuery.trim())}`;
+    }
   };
 
   const cartItemCount = state.cart.reduce((total: number, item: any) => total + item.quantity, 0);
@@ -31,28 +32,52 @@ const Header: React.FC<HeaderProps> = ({ categories }) => {
           {/* Left side: Logo and Navigation */}
           <div className="flex items-center space-x-8">
             {/* Company Logo */}
-            <Link to="/" className="text-2xl font-bold text-gray-800">
+            <Link to="/" className="text-2xl font-bold text-gray-800" aria-label="DesiMyntra - Go to homepage">
               DesiMyntra
             </Link>
 
             {/* Navigation Links */}
-            <nav className="flex items-center space-x-6">
-              <Link to="/category/men" className="text-gray-700 hover:text-gray-900 transition-colors font-medium">
+            <nav className="flex items-center space-x-6" role="navigation" aria-label="Main navigation">
+              <Link 
+                to="/category/men" 
+                className="text-gray-700 hover:text-gray-900 transition-colors font-medium"
+                aria-label="Shop men's clothing"
+              >
                 MEN
               </Link>
-              <Link to="/category/women" className="text-gray-700 hover:text-gray-900 transition-colors font-medium">
+              <Link 
+                to="/category/women" 
+                className="text-gray-700 hover:text-gray-900 transition-colors font-medium"
+                aria-label="Shop women's clothing"
+              >
                 WOMEN
               </Link>
-              <Link to="/category/kids" className="text-gray-700 hover:text-gray-900 transition-colors font-medium">
+              <Link 
+                to="/category/kids" 
+                className="text-gray-700 hover:text-gray-900 transition-colors font-medium"
+                aria-label="Shop kids' clothing"
+              >
                 KIDS
               </Link>
-              <Link to="/category/home" className="text-gray-700 hover:text-gray-900 transition-colors font-medium">
+              <Link 
+                to="/category/home" 
+                className="text-gray-700 hover:text-gray-900 transition-colors font-medium"
+                aria-label="Shop home and living"
+              >
                 HOME
               </Link>
-              <Link to="/category/beauty" className="text-gray-700 hover:text-gray-900 transition-colors font-medium">
+              <Link 
+                to="/category/beauty" 
+                className="text-gray-700 hover:text-gray-900 transition-colors font-medium"
+                aria-label="Shop beauty products"
+              >
                 BEAUTY
               </Link>
-              <Link to="/category/genz" className="text-gray-700 hover:text-gray-900 transition-colors font-medium">
+              <Link 
+                to="/category/genz" 
+                className="text-gray-700 hover:text-gray-900 transition-colors font-medium"
+                aria-label="Shop Gen Z fashion"
+              >
                 GENZ
               </Link>
             </nav>
@@ -61,19 +86,21 @@ const Header: React.FC<HeaderProps> = ({ categories }) => {
           {/* Right side: Search, Profile, Wishlist, Cart */}
           <div className="flex items-center space-x-6">
             {/* Search Bar */}
-            <form onSubmit={handleSearch} className="relative">
+            <form onSubmit={handleSearch} className="relative" role="search">
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-80 pl-4 pr-12 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ff3e6c] focus:border-transparent"
                 placeholder="Search for products..."
+                aria-label="Search products"
               />
               <button
                 type="submit"
                 className="absolute right-0 top-0 h-full px-4 bg-[#ff3e6c] text-white rounded-r-lg hover:bg-[#e6355f] transition-colors"
+                aria-label="Submit search"
               >
-                <Search size={18} />
+                <Search size={18} aria-hidden="true" />
               </button>
             </form>
 
@@ -84,29 +111,39 @@ const Header: React.FC<HeaderProps> = ({ categories }) => {
                   <button
                     onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}
                     className="flex items-center space-x-2 text-gray-700 hover:text-gray-900 transition-colors"
+                    aria-label={`User menu for ${state.user.name}`}
+                    aria-expanded={isUserDropdownOpen}
+                    aria-haspopup="true"
                   >
-                    <User size={18} />
+                    <User size={18} aria-hidden="true" />
                     <span className="hidden sm:block">{state.user.name}</span>
-                    <ChevronDown size={16} />
+                    <ChevronDown size={16} aria-hidden="true" />
                   </button>
 
                   {isUserDropdownOpen && (
-                    <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                    <div 
+                      className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50"
+                      role="menu"
+                      aria-label="User account options"
+                    >
                       <Link
                         to="/profile"
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                        role="menuitem"
                       >
                         Profile
                       </Link>
                       <Link
                         to="/orders"
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                        role="menuitem"
                       >
                         My Orders
                       </Link>
                       <Link
                         to="/wishlist"
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors"
+                        role="menuitem"
                       >
                         Wishlist
                       </Link>
@@ -116,6 +153,7 @@ const Header: React.FC<HeaderProps> = ({ categories }) => {
                           setIsUserDropdownOpen(false);
                         }}
                         className="block w-full text-left px-4 py-2 text-sm text-[#ff3e6c] hover:bg-gray-50 transition-colors"
+                        role="menuitem"
                       >
                         Sign Out
                       </button>
@@ -126,8 +164,9 @@ const Header: React.FC<HeaderProps> = ({ categories }) => {
                 <Link
                   to="/profile"
                   className="flex items-center space-x-2 text-gray-700 hover:text-gray-900 transition-colors"
+                  aria-label="Sign in or create account"
                 >
-                  <User size={18} />
+                  <User size={18} aria-hidden="true" />
                   <span className="hidden sm:block">Profile</span>
                 </Link>
               )}
@@ -137,8 +176,9 @@ const Header: React.FC<HeaderProps> = ({ categories }) => {
             <Link
               to="/wishlist"
               className="flex items-center space-x-2 text-gray-700 hover:text-gray-900 transition-colors relative"
+              aria-label={`Wishlist (${wishlistItemCount} items)`}
             >
-              <Heart size={18} />
+              <Heart size={18} aria-hidden="true" />
               <span className="hidden sm:block">Wishlist</span>
               {wishlistItemCount > 0 && (
                 <span className="absolute -top-2 -right-2 bg-[#ff3e6c] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
@@ -151,8 +191,9 @@ const Header: React.FC<HeaderProps> = ({ categories }) => {
             <Link
               to="/cart"
               className="flex items-center space-x-2 text-gray-700 hover:text-gray-900 transition-colors relative"
+              aria-label={`Shopping cart (${cartItemCount} items)`}
             >
-              <ShoppingCart size={18} />
+              <ShoppingCart size={18} aria-hidden="true" />
               <span className="hidden sm:block">Cart</span>
               {cartItemCount > 0 && (
                 <span className="absolute -top-2 -right-2 bg-[#ff3e6c] text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
@@ -167,7 +208,7 @@ const Header: React.FC<HeaderProps> = ({ categories }) => {
         <div className="lg:hidden py-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <Link to="/" className="text-xl font-bold text-gray-800">
+            <Link to="/" className="text-xl font-bold text-gray-800" aria-label="DesiMyntra - Go to homepage">
               DesiMyntra
             </Link>
 
@@ -175,38 +216,43 @@ const Header: React.FC<HeaderProps> = ({ categories }) => {
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="p-2 text-gray-700 hover:text-gray-900 transition-colors"
+              aria-label="Toggle mobile menu"
+              aria-expanded={isMenuOpen}
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </button>
           </div>
 
           {/* Mobile Search */}
-          <form onSubmit={handleSearch} className="relative mt-4">
+          <form onSubmit={handleSearch} className="relative mt-4" role="search">
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-4 pr-12 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#ff3e6c] focus:border-transparent"
               placeholder="Search for products..."
+              aria-label="Search products"
             />
             <button
               type="submit"
               className="absolute right-0 top-0 h-full px-4 bg-[#ff3e6c] text-white rounded-r-lg hover:bg-[#e6355f] transition-colors"
+              aria-label="Submit search"
             >
-              <Search size={18} />
+              <Search size={18} aria-hidden="true" />
             </button>
           </form>
 
           {/* Mobile Menu */}
           {isMenuOpen && (
             <div className="mt-4 py-4 border-t border-gray-200">
-              <nav className="space-y-2">
+              <nav className="space-y-2" role="navigation" aria-label="Mobile navigation">
                 <Link
                   to="/category/men"
                   className="block py-2 text-gray-700 hover:text-gray-900 transition-colors font-medium"
                   onClick={() => setIsMenuOpen(false)}
+                  aria-label="Shop men's clothing"
                 >
                   MEN
                 </Link>
@@ -214,6 +260,7 @@ const Header: React.FC<HeaderProps> = ({ categories }) => {
                   to="/category/women"
                   className="block py-2 text-gray-700 hover:text-gray-900 transition-colors font-medium"
                   onClick={() => setIsMenuOpen(false)}
+                  aria-label="Shop women's clothing"
                 >
                   WOMEN
                 </Link>
@@ -221,6 +268,7 @@ const Header: React.FC<HeaderProps> = ({ categories }) => {
                   to="/category/kids"
                   className="block py-2 text-gray-700 hover:text-gray-900 transition-colors font-medium"
                   onClick={() => setIsMenuOpen(false)}
+                  aria-label="Shop kids' clothing"
                 >
                   KIDS
                 </Link>
@@ -228,6 +276,7 @@ const Header: React.FC<HeaderProps> = ({ categories }) => {
                   to="/category/home"
                   className="block py-2 text-gray-700 hover:text-gray-900 transition-colors font-medium"
                   onClick={() => setIsMenuOpen(false)}
+                  aria-label="Shop home and living"
                 >
                   HOME
                 </Link>
@@ -235,6 +284,7 @@ const Header: React.FC<HeaderProps> = ({ categories }) => {
                   to="/category/beauty"
                   className="block py-2 text-gray-700 hover:text-gray-900 transition-colors font-medium"
                   onClick={() => setIsMenuOpen(false)}
+                  aria-label="Shop beauty products"
                 >
                   BEAUTY
                 </Link>
@@ -242,6 +292,7 @@ const Header: React.FC<HeaderProps> = ({ categories }) => {
                   to="/category/genz"
                   className="block py-2 text-gray-700 hover:text-gray-900 transition-colors font-medium"
                   onClick={() => setIsMenuOpen(false)}
+                  aria-label="Shop Gen Z fashion"
                 >
                   GENZ
                 </Link>
@@ -254,14 +305,16 @@ const Header: React.FC<HeaderProps> = ({ categories }) => {
                       to="/profile"
                       className="flex items-center space-x-2 py-2 text-gray-700 hover:text-gray-900 transition-colors"
                       onClick={() => setIsMenuOpen(false)}
+                      aria-label="View profile"
                     >
-                      <User size={18} />
+                      <User size={18} aria-hidden="true" />
                       <span>Profile</span>
                     </Link>
                     <Link
                       to="/orders"
                       className="flex items-center space-x-2 py-2 text-gray-700 hover:text-gray-900 transition-colors"
                       onClick={() => setIsMenuOpen(false)}
+                      aria-label="View orders"
                     >
                       <span>My Orders</span>
                     </Link>
@@ -271,6 +324,7 @@ const Header: React.FC<HeaderProps> = ({ categories }) => {
                         setIsMenuOpen(false);
                       }}
                       className="block w-full text-left py-2 px-4 text-[#ff3e6c] hover:bg-gray-100 rounded-lg transition-colors"
+                      aria-label="Sign out"
                     >
                       Sign Out
                     </button>
@@ -280,8 +334,9 @@ const Header: React.FC<HeaderProps> = ({ categories }) => {
                     to="/profile"
                     className="flex items-center space-x-2 py-2 text-gray-700 hover:text-gray-900 transition-colors"
                     onClick={() => setIsMenuOpen(false)}
+                    aria-label="Sign in or create account"
                   >
-                    <User size={18} />
+                    <User size={18} aria-hidden="true" />
                     <span>Profile</span>
                   </Link>
                 )}
@@ -290,8 +345,9 @@ const Header: React.FC<HeaderProps> = ({ categories }) => {
                   to="/wishlist"
                   className="flex items-center space-x-2 py-2 text-gray-700 hover:text-gray-900 transition-colors"
                   onClick={() => setIsMenuOpen(false)}
+                  aria-label={`Wishlist (${wishlistItemCount} items)`}
                 >
-                  <Heart size={18} />
+                  <Heart size={18} aria-hidden="true" />
                   <span>Wishlist ({wishlistItemCount})</span>
                 </Link>
 
@@ -299,8 +355,9 @@ const Header: React.FC<HeaderProps> = ({ categories }) => {
                   to="/cart"
                   className="flex items-center space-x-2 py-2 text-gray-700 hover:text-gray-900 transition-colors"
                   onClick={() => setIsMenuOpen(false)}
+                  aria-label={`Shopping cart (${cartItemCount} items)`}
                 >
-                  <ShoppingCart size={18} />
+                  <ShoppingCart size={18} aria-hidden="true" />
                   <span>Cart ({cartItemCount})</span>
                 </Link>
               </div>

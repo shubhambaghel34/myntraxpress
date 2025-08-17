@@ -108,8 +108,9 @@ export default function ProductCard({ product, variant = 'grid' }: ProductCardPr
                   onClick={handleAddToCart}
                   disabled={!product.inStock}
                   className="btn-primary btn-small disabled:opacity-50 disabled:cursor-not-allowed"
+                  aria-label={`Add ${product.name} to cart`}
                 >
-                  <ShoppingCart size={16} />
+                  <ShoppingCart size={16} aria-hidden="true" />
                   Add to Cart
                 </button>
                 
@@ -120,16 +121,18 @@ export default function ProductCard({ product, variant = 'grid' }: ProductCardPr
                       ? 'wishlist-btn-active'
                       : 'wishlist-btn-inactive'
                   }`}
+                  aria-label={isInWishlist ? `Remove ${product.name} from wishlist` : `Add ${product.name} to wishlist`}
                 >
-                  <Heart size={16} className={isInWishlist ? 'fill-current' : ''} />
+                  <Heart size={16} className={isInWishlist ? 'fill-current' : ''} aria-hidden="true" />
                 </button>
 
                 <Link
                   to={`/product/${product.id}`}
                   className="p-2 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200 transition-colors"
-                  title="View details"
+                  aria-label={`View details for ${product.name}`}
                 >
-                  <Eye size={16} />
+                  <Eye size={16} aria-hidden="true" />
+                  <span className="sr-only">View details</span>
                 </Link>
               </div>
             </div>
@@ -159,17 +162,18 @@ export default function ProductCard({ product, variant = 'grid' }: ProductCardPr
                 ? 'bg-[#FD913C] text-white hover:bg-[#f0852e]'
                 : 'bg-white/90 text-gray-600 hover:bg-[#FD913C] hover:text-white'
             }`}
-            title={isInWishlist ? 'Remove from wishlist' : 'Add to wishlist'}
+            aria-label={isInWishlist ? `Remove ${product.name} from wishlist` : `Add ${product.name} to wishlist`}
           >
-            <Heart size={16} className={isInWishlist ? 'fill-current' : ''} />
+            <Heart size={16} className={isInWishlist ? 'fill-current' : ''} aria-hidden="true" />
           </button>
 
           <Link
             to={`/product/${product.id}`}
             className="p-2 bg-white/90 text-gray-600 rounded-full hover:bg-gray-100 transition-colors"
-            title="View details"
+            aria-label={`View details for ${product.name}`}
           >
-            <Eye size={16} />
+            <Eye size={16} aria-hidden="true" />
+            <span className="sr-only">View details</span>
           </Link>
         </div>
 
@@ -216,8 +220,9 @@ export default function ProductCard({ product, variant = 'grid' }: ProductCardPr
             onClick={handleAddToCart}
             disabled={!product.inStock}
             className="flex-1 btn-primary btn-small disabled:opacity-50 disabled:cursor-not-allowed"
+            aria-label={`Add ${product.name} to cart`}
           >
-            <ShoppingCart size={16} />
+            <ShoppingCart size={16} aria-hidden="true" />
             Add to Cart
           </button>
           
@@ -228,8 +233,9 @@ export default function ProductCard({ product, variant = 'grid' }: ProductCardPr
                 ? 'border-secondary-500 bg-secondary-50 text-secondary-700'
                 : 'border-gray-300 hover:border-secondary-300 hover:bg-secondary-50'
             }`}
+            aria-label={isInWishlist ? `Remove ${product.name} from wishlist` : `Add ${product.name} to wishlist`}
           >
-            <Heart size={16} className={isInWishlist ? 'fill-current' : ''} />
+            <Heart size={16} className={isInWishlist ? 'fill-current' : ''} aria-hidden="true" />
           </button>
         </div>
       </div>

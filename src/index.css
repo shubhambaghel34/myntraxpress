@@ -63,4 +63,8 @@
   .wishlist-btn-inactive {
     @apply border-gray-300 hover:border-[#FD913C] hover:bg-[#FD913C]/10;
   }
+
+  .sr-only {
+    @apply absolute w-px h-px p-0 -m-px overflow-hidden whitespace-nowrap border-0;
+  }
 }

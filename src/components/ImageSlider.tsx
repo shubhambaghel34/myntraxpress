@@ -50,7 +50,7 @@ const ImageSlider: React.FC = () => {
   }, [slides.length]);
 
   return (
-    <div className="relative w-full h-[500px] overflow-hidden bg-gray-100">
+    <section className="relative w-full h-[500px] overflow-hidden bg-gray-100" aria-label="Featured products slider">
       {/* Slides */}
       {slides.map((slide, index) => (
         <div
@@ -58,6 +58,7 @@ const ImageSlider: React.FC = () => {
           className={`absolute inset-0 transition-opacity duration-1000 ${
             index === currentSlide ? 'opacity-100' : 'opacity-0'
           }`}
+          aria-hidden={index !== currentSlide}
         >
           <div className="relative w-full h-full">
             <img
@@ -68,13 +69,16 @@ const ImageSlider: React.FC = () => {
             <div className="absolute inset-0 bg-black bg-opacity-40"></div>
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center text-white">
-                <h1 className="text-4xl md:text-6xl font-bold mb-4">
+                <h2 className="text-4xl md:text-6xl font-bold mb-4">
                   {slide.title}
-                </h1>
+                </h2>
                 <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">
                   {slide.subtitle}
                 </p>
-                <button className="bg-[#ff3e6c] hover:bg-[#e6355f] text-white font-semibold py-3 px-8 rounded-lg text-lg transition-colors duration-200 shadow-lg hover:shadow-xl">
+                <button 
+                  className="bg-[#ff3e6c] hover:bg-[#e6355f] text-white font-semibold py-3 px-8 rounded-lg text-lg transition-colors duration-200 shadow-lg hover:shadow-xl"
+                  aria-label={slide.cta}
+                >
                   {slide.cta}
                 </button>
               </div>
@@ -84,11 +88,18 @@ const ImageSlider: React.FC = () => {
       ))}
 
       {/* Dots Indicator */}
-      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2">
+      <div 
+        className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2"
+        role="tablist"
+        aria-label="Slide navigation"
+      >
         {slides.map((_, index) => (
           <div
             key={index}
-            className={`w-3 h-3 rounded-full transition-all duration-200 ${
+            role="tab"
+            aria-selected={index === currentSlide}
+            aria-label={`Go to slide ${index + 1}`}
+            className={`w-3 h-3 rounded-full transition-all duration-200 cursor-pointer ${
               index === currentSlide
                 ? 'bg-white scale-125'
                 : 'bg-white bg-opacity-50'
@@ -96,7 +107,7 @@ const ImageSlider: React.FC = () => {
           />
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 
